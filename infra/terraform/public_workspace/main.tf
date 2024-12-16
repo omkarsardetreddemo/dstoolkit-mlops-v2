@@ -55,27 +55,22 @@
 #  }
 #}
 
-# Retrieve current Azure client configuration
-data "azurerm_client_config" "current" {}
-
-# Check if the resource group exists
 data "azurerm_resource_group" "existing_rg" {
   name     = var.rg_name
   provider = azurerm
-  count    = length(try([azurerm_resource_group.rg.name], []))
 }
 
-# Create the resource group if it doesn't exist
 resource "azurerm_resource_group" "rg" {
-  count    = length(data.azurerm_resource_group.existing_rg.*.name) == 0 ? 1 : 0
+  count    = length(try([data.azurerm_resource_group.existing_rg.name], [])) == 0 ? 1 : 0
   location = var.location
   name     = var.rg_name
 }
 
-# Determine which resource group to use
 locals {
-  rg_name   = length(data.azurerm_resource_group.existing_rg.*.name) > 0 ? data.azurerm_resource_group.existing_rg[0].name : azurerm_resource_group.rg[0].name
-  rg_loc    = length(data.azurerm_resource_group.existing_rg.*.location) > 0 ? data.azurerm_resource_group.existing_rg[0].location : azurerm_resource_group.rg[0].location
+  rg_name = length(try([data.azurerm_resource_group.existing_rg.name], [])) > 0 ? 
+            data.azurerm_resource_group.existing_rg.name : azurerm_resource_group.rg[0].name
+  rg_loc  = length(try([data.azurerm_resource_group.existing_rg.location], [])) > 0 ? 
+            data.azurerm_resource_group.existing_rg.location : azurerm_resource_group.rg[0].location
 }
 
 resource "azurerm_application_insights" "aml_appins" {
