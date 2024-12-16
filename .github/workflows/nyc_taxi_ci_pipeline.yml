@@ -1,6 +1,7 @@
 name: Nyc Taxi CI Workflow
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - main
