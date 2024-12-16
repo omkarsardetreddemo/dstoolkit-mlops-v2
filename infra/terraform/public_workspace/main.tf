@@ -67,10 +67,8 @@ resource "azurerm_resource_group" "rg" {
 }
 
 locals {
-  rg_name = length(try([data.azurerm_resource_group.existing_rg.name], [])) > 0 ? 
-            data.azurerm_resource_group.existing_rg.name : azurerm_resource_group.rg[0].name
-  rg_loc  = length(try([data.azurerm_resource_group.existing_rg.location], [])) > 0 ? 
-            data.azurerm_resource_group.existing_rg.location : azurerm_resource_group.rg[0].location
+  rg_name = length(try([data.azurerm_resource_group.existing_rg.name], [])) > 0 ? data.azurerm_resource_group.existing_rg.name : azurerm_resource_group.rg[0].name
+  rg_loc  = length(try([data.azurerm_resource_group.existing_rg.location], [])) > 0 ? data.azurerm_resource_group.existing_rg.location : azurerm_resource_group.rg[0].location
 }
 
 resource "azurerm_application_insights" "aml_appins" {
