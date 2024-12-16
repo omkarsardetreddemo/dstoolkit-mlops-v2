@@ -7,3 +7,7 @@ storage_acct = "#{STORAGE_ACCT_NAME}#"
 tfstate_rg_name = "#{TFSTATE_RESOURCE_GROUP_NAME}#"  
 tfstate_storage_acct = "#{TFSTATE_STORAGE_ACCT_NAME}#"
 workspace_name = "#{WORKSPACE_NAME}#"
+
+subscription_id = "#{SUBSCRIPTION_ID}#"
+tenant_id = "#{ARM_TENANT_ID}#"
+client_id = "#{ARM_CLIENT_ID}#"
