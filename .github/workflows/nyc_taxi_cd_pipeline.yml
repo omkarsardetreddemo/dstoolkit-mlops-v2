@@ -1,6 +1,7 @@
 # Continuous integration (cd) for nyc taxi model 
 name: Nyc Taxi CD Workflow
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
